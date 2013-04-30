@@ -23,6 +23,15 @@
 	<xsd:element name="inbound-channel-adapter">
 		<xsd:complexType>
 			<xsd:attributeGroup ref="integration:channelAdapterAttributes" />
+			<xsd:attribute name="cluster" type="xsd:string" use="required">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tool:annotation kind="ref">
+							<tool:expected-type type="org.jgroups.JChannel"/>
+						</tool:annotation>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>
 

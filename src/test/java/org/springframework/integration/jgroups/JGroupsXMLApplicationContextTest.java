@@ -19,4 +19,15 @@ public class JGroupsXMLApplicationContextTest {
 
 	}
 
+	@Test
+	public void should_create_jgroups_inbound_channel_adapter() {
+		FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/inbound-channel-adapter.xml");
+
+		Object cluster = context.getBean("cluster");
+		
+		JGroupsInboundEndpoint clusterAdapter = context.getBean("cluster-adapter",JGroupsInboundEndpoint.class);
+		
+		assertThat(cluster).isSameAs(clusterAdapter.getJChannel());
+		
+	}
 }

@@ -14,6 +14,7 @@ public class JGroupsInboundChannelAdapterParser extends AbstractSingleBeanDefini
 
 	@Override
 	protected void doParse(Element element, BeanDefinitionBuilder builder) {
+		builder.addConstructorArgReference(element.getAttribute("cluster"));
 		builder.addPropertyReference("outputChannel", element.getAttribute("channel"));
 	}
 

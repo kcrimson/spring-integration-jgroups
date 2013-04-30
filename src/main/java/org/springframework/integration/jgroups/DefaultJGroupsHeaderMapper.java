@@ -7,9 +7,8 @@ import org.jgroups.Address;
 import org.jgroups.Message;
 import org.jgroups.Message.Flag;
 import org.springframework.integration.MessageHeaders;
-import org.springframework.integration.mapping.HeaderMapper;
 
-public class DefaultJGroupsHeaderMapper implements HeaderMapper<Message> {
+public class DefaultJGroupsHeaderMapper implements JGroupsHeaderMapper {
 
 	public void fromHeaders(MessageHeaders headers, Message target) {
 
