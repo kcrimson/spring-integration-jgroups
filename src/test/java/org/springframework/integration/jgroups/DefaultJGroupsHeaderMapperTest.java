@@ -53,7 +53,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("OOB", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_DONT_BUNDLE_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -67,7 +67,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("DONT_BUNDLE", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_NO_FC_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -81,7 +81,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("NO_FC", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_SCOPED_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -95,7 +95,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("SCOPED", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_NO_RELIABILITY_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -123,7 +123,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("NO_TOTAL_ORDER", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_NO_RELAY_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -137,7 +137,7 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("NO_RELAY", true));
 
 	}
-	
+
 	@Test
 	public void should_map_to_RSVP_flag() {
 		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
@@ -151,5 +151,5 @@ public class DefaultJGroupsHeaderMapperTest {
 		assertThat(headers).includes(entry("RSVP", true));
 
 	}
-	
+
 }
