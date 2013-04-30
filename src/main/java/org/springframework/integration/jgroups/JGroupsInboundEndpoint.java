@@ -22,24 +22,18 @@ public class JGroupsInboundEndpoint extends MessageProducerSupport {
 	@Override
 	protected void doStart() {
 
-		try {
+		jgroupsChannel.setReceiver(new ReceiverAdapter() {
 
-			jgroupsChannel.setReceiver(new ReceiverAdapter() {
+			@Override
+			public void receive(Message msg) {
+				Object object = msg.getObject();
 
-				@Override
-				public void receive(Message msg) {
-					Object object = msg.getObject();
+				Map<String, Object> headers = headerMapper.toHeaders(msg);
 
-					Map<String, Object> headers = headerMapper.toHeaders(msg);
+				sendMessage(MessageBuilder.withPayload(object).copyHeaders(headers).build());
+			}
 
-					sendMessage(MessageBuilder.withPayload(object).copyHeaders(headers).build());
-				}
-
-			});
-
-		} catch (Exception e) {
-			throw new RuntimeException("unable to connect to cluster", e);
-		}
+		});
 
 	}
 
