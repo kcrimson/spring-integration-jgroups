@@ -4,12 +4,14 @@ import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.assertions.MapAssert.entry;
 
 import java.net.Inet4Address;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.jgroups.Message;
 import org.jgroups.Message.Flag;
 import org.jgroups.stack.IpAddress;
 import org.junit.Test;
+import org.springframework.integration.MessageHeaders;
 import org.springframework.integration.jgroups.DefaultJGroupsHeaderMapper;
 
 public class DefaultJGroupsHeaderMapperTest {
@@ -150,6 +152,20 @@ public class DefaultJGroupsHeaderMapperTest {
 
 		assertThat(headers).includes(entry("RSVP", true));
 
+	}
+	
+	@Test
+	public void should_map_from_OOB_flag(){
+		DefaultJGroupsHeaderMapper headerMapper = new DefaultJGroupsHeaderMapper();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("OOB", true);
+		MessageHeaders headers = new MessageHeaders(map);
+		
+		Message target = new Message();
+		headerMapper.fromHeaders(headers, target);
+		
+		assertThat(target.isFlagSet(Flag.OOB));
 	}
 
 }

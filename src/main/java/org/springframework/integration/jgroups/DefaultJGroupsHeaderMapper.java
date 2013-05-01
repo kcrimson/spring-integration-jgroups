@@ -10,7 +10,48 @@ import org.springframework.integration.MessageHeaders;
 
 public class DefaultJGroupsHeaderMapper implements JGroupsHeaderMapper {
 
+	private static final String SCOPED_HEADER = "SCOPED";
+	private static final String RSVP_HEADER = "RSVP";
+	private static final String NO_TOTAL_ORDER_HEADER = "NO_TOTAL_ORDER";
+	private static final String NO_RELIABILITY_HEADER = "NO_RELIABILITY";
+	private static final String NO_RELAY_HEADER = "NO_RELAY";
+	private static final String NO_FC_HEADER = "NO_FC";
+	private static final String DONT_BUNDLE_HEADER = "DONT_BUNDLE";
+	private static final String OOB_HEADER = "OOB";
+
 	public void fromHeaders(MessageHeaders headers, Message target) {
+
+		if (getHeaderValueAsBoolean(headers, OOB_HEADER)) {
+			target.setFlag(Flag.OOB);
+		}
+
+		if (getHeaderValueAsBoolean(headers, DONT_BUNDLE_HEADER)) {
+			target.setFlag(Flag.DONT_BUNDLE);
+		}
+
+		if (getHeaderValueAsBoolean(headers, NO_FC_HEADER)) {
+			target.setFlag(Flag.NO_FC);
+		}
+
+		if (getHeaderValueAsBoolean(headers, NO_RELAY_HEADER)) {
+			target.setFlag(Flag.NO_RELAY);
+		}
+
+		if (getHeaderValueAsBoolean(headers, NO_RELIABILITY_HEADER)) {
+			target.setFlag(Flag.NO_RELIABILITY);
+		}
+
+		if (getHeaderValueAsBoolean(headers, NO_TOTAL_ORDER_HEADER)) {
+			target.setFlag(Flag.OOB);
+		}
+
+		if (getHeaderValueAsBoolean(headers, RSVP_HEADER)) {
+			target.setFlag(Flag.RSVP);
+		}
+
+		if (getHeaderValueAsBoolean(headers, SCOPED_HEADER)) {
+			target.setFlag(Flag.SCOPED);
+		}
 
 	}
 
@@ -28,16 +69,23 @@ public class DefaultJGroupsHeaderMapper implements JGroupsHeaderMapper {
 			map.put("dest", dest);
 		}
 
-		map.put("OOB", source.isFlagSet(Flag.OOB));
-		map.put("DONT_BUNDLE", source.isFlagSet(Flag.DONT_BUNDLE));
-		map.put("NO_FC", source.isFlagSet(Flag.NO_FC));
-		map.put("NO_RELAY", source.isFlagSet(Flag.NO_RELAY));
-		map.put("NO_RELIABILITY", source.isFlagSet(Flag.NO_RELIABILITY));
-		map.put("NO_TOTAL_ORDER", source.isFlagSet(Flag.NO_TOTAL_ORDER));
-		map.put("RSVP", source.isFlagSet(Flag.RSVP));
-		map.put("SCOPED", source.isFlagSet(Flag.SCOPED));
+		map.put(OOB_HEADER, source.isFlagSet(Flag.OOB));
+		map.put(DONT_BUNDLE_HEADER, source.isFlagSet(Flag.DONT_BUNDLE));
+		map.put(NO_FC_HEADER, source.isFlagSet(Flag.NO_FC));
+		map.put(NO_RELAY_HEADER, source.isFlagSet(Flag.NO_RELAY));
+		map.put(NO_RELIABILITY_HEADER, source.isFlagSet(Flag.NO_RELIABILITY));
+		map.put(NO_TOTAL_ORDER_HEADER, source.isFlagSet(Flag.NO_TOTAL_ORDER));
+		map.put(RSVP_HEADER, source.isFlagSet(Flag.RSVP));
+		map.put(SCOPED_HEADER, source.isFlagSet(Flag.SCOPED));
 
 		return map;
 	}
 
+	private static Boolean getHeaderValueAsBoolean(MessageHeaders headers, String headerName) {
+		Boolean headerValue = headers.get(headerName, Boolean.class);
+		if (headerValue == null) {
+			headerValue = false;
+		}
+		return headerValue;
+	}
 }
