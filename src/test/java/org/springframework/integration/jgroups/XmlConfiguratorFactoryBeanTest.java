@@ -35,5 +35,7 @@ public class XmlConfiguratorFactoryBeanTest {
 
 		factoryBean.afterPropertiesSet();
 
+		@SuppressWarnings("unused")
+		ProtocolStackConfigurator stackConfigurator = factoryBean.getObject();
 	}
 }

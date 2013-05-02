@@ -32,6 +32,8 @@ public class JGroupsChannelFactoryBeanTest {
 
 		factoryBean.setProtocolStackConfigurator(protocolStackConfigurator);
 		factoryBean.setClusterName("cluster");
+		factoryBean.afterPropertiesSet();
+		
 		JChannel channel = factoryBean.getObject();
 		
 		ProtocolStack protocolStack = channel.getProtocolStack();
@@ -47,7 +49,8 @@ public class JGroupsChannelFactoryBeanTest {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage(is("JGroups protocol stack configurator is null"));
 		
-
+		factoryBean.afterPropertiesSet();
+		
 		@SuppressWarnings("unused")
 		JChannel channel = factoryBean.getObject();
 	}
@@ -60,6 +63,8 @@ public class JGroupsChannelFactoryBeanTest {
 		expectedException.expect(IllegalArgumentException.class);
 		expectedException.expectMessage(is("JGroups cluster name is null or empty"));
 
+		factoryBean.afterPropertiesSet();
+		
 		@SuppressWarnings("unused")
 		JChannel channel = factoryBean.getObject();
 	}

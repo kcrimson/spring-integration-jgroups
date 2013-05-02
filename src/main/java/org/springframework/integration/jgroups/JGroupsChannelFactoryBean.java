@@ -2,16 +2,16 @@ package org.springframework.integration.jgroups;
 
 import org.jgroups.JChannel;
 import org.jgroups.conf.ProtocolStackConfigurator;
-import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.config.AbstractFactoryBean;
 import org.springframework.util.Assert;
 
-public class JGroupsChannelFactoryBean implements FactoryBean<JChannel> {
+public class JGroupsChannelFactoryBean extends AbstractFactoryBean<JChannel> {
 
 	private ProtocolStackConfigurator protocolStackConfigurator;
 	private String clusterName;
 
 	@Override
-	public JChannel getObject() throws Exception {
+	public JChannel createInstance() throws Exception {
 
 		Assert.notNull(protocolStackConfigurator, "JGroups protocol stack configurator is null");
 		Assert.hasText(clusterName,"JGroups cluster name is null or empty");
@@ -28,11 +28,6 @@ public class JGroupsChannelFactoryBean implements FactoryBean<JChannel> {
 		return JChannel.class;
 	}
 
-	@Override
-	public boolean isSingleton() {
-		return true;
-	}
-
 	public void setProtocolStackConfigurator(ProtocolStackConfigurator protocolStackConfigurator) {
 		this.protocolStackConfigurator = protocolStackConfigurator;
 	}
@@ -40,5 +35,6 @@ public class JGroupsChannelFactoryBean implements FactoryBean<JChannel> {
 	public void setClusterName(String clusterName) {
 		this.clusterName = clusterName;		
 	}
+
 
 }
