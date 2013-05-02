@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema 
-	xmlns="http://www.springframework.org/schema/integration/jgroups"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:beans="http://www.springframework.org/schema/beans"
+<xsd:schema xmlns="http://www.springframework.org/schema/integration/jgroups"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:tool="http://www.springframework.org/schema/tool"
 	xmlns:integration="http://www.springframework.org/schema/integration"
 	targetNamespace="http://www.springframework.org/schema/integration/jgroups"
-	elementFormDefault="qualified" 
-	attributeFormDefault="unqualified">
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
 
 	<xsd:import namespace="http://www.springframework.org/schema/beans" />
 	<xsd:import namespace="http://www.springframework.org/schema/tool" />
@@ -20,6 +17,20 @@
 		]]></xsd:documentation>
 	</xsd:annotation>
 
+	<xsd:complexType name="xmlProtocolStackConfiguratorType">
+		<xsd:attribute name="resource" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+
+	<xsd:element name="cluster">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="xml-configurator" type="xmlProtocolStackConfiguratorType" />
+			</xsd:sequence>
+			<xsd:attribute name="name" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
 	<xsd:element name="inbound-channel-adapter">
 		<xsd:complexType>
 			<xsd:attributeGroup ref="integration:channelAdapterAttributes" />
@@ -27,7 +38,7 @@
 				<xsd:annotation>
 					<xsd:appinfo>
 						<tool:annotation kind="ref">
-							<tool:expected-type type="org.jgroups.JChannel"/>
+							<tool:expected-type type="org.jgroups.JChannel" />
 						</tool:annotation>
 					</xsd:appinfo>
 				</xsd:annotation>

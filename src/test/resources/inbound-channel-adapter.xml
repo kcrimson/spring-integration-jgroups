@@ -13,7 +13,7 @@
 		<property name="clusterName" value="cluster" />
 		<property name="protocolStackConfigurator">
 			<bean
-				class="org.springframework.integration.jgroups.XmlConfiguratorFactoryBean">
+				class="org.springframework.integration.jgroups.config.XmlConfiguratorFactoryBean">
 				<property name="resource" value="classpath:udp.xml" />
 			</bean>
 		</property>
