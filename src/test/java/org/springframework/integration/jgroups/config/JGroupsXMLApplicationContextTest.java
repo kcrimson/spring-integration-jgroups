@@ -1,10 +1,11 @@
-package org.springframework.integration.jgroups;
+package org.springframework.integration.jgroups.config;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.jgroups.JChannel;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.integration.jgroups.JGroupsInboundEndpoint;
 
 public class JGroupsXMLApplicationContextTest {
 

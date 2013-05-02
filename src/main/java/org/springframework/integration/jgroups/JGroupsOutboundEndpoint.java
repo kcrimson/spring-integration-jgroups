@@ -3,17 +3,20 @@ package org.springframework.integration.jgroups;
 import org.jgroups.JChannel;
 import org.springframework.integration.Message;
 import org.springframework.integration.handler.AbstractMessageHandler;
-import org.springframework.integration.mapping.HeaderMapper;
 
 public class JGroupsOutboundEndpoint extends AbstractMessageHandler {
 
 	private final JChannel jgroupsChannel;
-	private final HeaderMapper<org.jgroups.Message> headerMapper;
+	private final JGroupsHeaderMapper headerMapper;
 
-	public JGroupsOutboundEndpoint(JChannel jgroupsChannel, HeaderMapper<org.jgroups.Message> headerMapper) {
+	public JGroupsOutboundEndpoint(JChannel jgroupsChannel, JGroupsHeaderMapper headerMapper) {
 		super();
 		this.jgroupsChannel = jgroupsChannel;
 		this.headerMapper = headerMapper;
+	}
+
+	public JGroupsOutboundEndpoint(JChannel jgroupsChannel) {
+		this(jgroupsChannel, new DefaultJGroupsHeaderMapper());
 	}
 
 	@Override
@@ -26,4 +29,4 @@ public class JGroupsOutboundEndpoint extends AbstractMessageHandler {
 		jgroupsChannel.send(target);
 	}
 
-}
+}  

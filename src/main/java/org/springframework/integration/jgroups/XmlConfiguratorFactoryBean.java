@@ -1,4 +1,4 @@
-package org.springframework.integration.jgroups.config;
+package org.springframework.integration.jgroups;
 
 import java.io.InputStream;
 
@@ -24,7 +24,7 @@ public class XmlConfiguratorFactoryBean extends AbstractFactoryBean<ProtocolStac
 	@Override
 	protected ProtocolStackConfigurator createInstance() throws Exception {
 		
-		Assert.notNull(resource, "no XML resource with JGroups configration");
+		Assert.notNull(resource, "no XML resource with JGroups configuration");
 
 		InputStream stream = resource.getInputStream();
 

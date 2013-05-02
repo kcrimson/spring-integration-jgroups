@@ -8,7 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.integration.jgroups.config.XmlConfiguratorFactoryBean;
 
 public class XmlConfiguratorFactoryBeanTest {
 
@@ -31,7 +30,7 @@ public class XmlConfiguratorFactoryBeanTest {
 		XmlConfiguratorFactoryBean factoryBean = new XmlConfiguratorFactoryBean();
 
 		expectedException.expect(IllegalArgumentException.class);
-		expectedException.expectMessage(is("no XML resource with JGroups configration"));
+		expectedException.expectMessage(is("no XML resource with JGroups configuration"));
 
 		factoryBean.afterPropertiesSet();
 
