@@ -20,6 +20,7 @@ import static org.fest.assertions.Assertions.assertThat;
 import org.jgroups.JChannel;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.integration.jgroups.JGroupsHeaderMapper;
 import org.springframework.integration.jgroups.JGroupsInboundEndpoint;
 
 public class JGroupsXMLApplicationContextTest {
@@ -39,11 +40,24 @@ public class JGroupsXMLApplicationContextTest {
 	public void should_create_jgroups_inbound_channel_adapter() {
 		FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/inbound-channel-adapter.xml");
 
-		Object cluster = context.getBean("cluster");
-		
-		JGroupsInboundEndpoint clusterAdapter = context.getBean("cluster-adapter",JGroupsInboundEndpoint.class);
-		
+		JChannel cluster = context.getBean("cluster", JChannel.class);
+
+		JGroupsInboundEndpoint clusterAdapter = context.getBean("cluster-adapter", JGroupsInboundEndpoint.class);
+
 		assertThat(cluster).isSameAs(clusterAdapter.getJChannel());
-		
+
 	}
+
+	@Test
+	public void should_create_jgroups_inbound_channel_adapter_with_custom_header_mapper() {
+		FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/custom-inbound-channel-adapter-header-mapper.xml");
+
+		JGroupsHeaderMapper headerMapper = context.getBean("custom-header-mapper", JGroupsHeaderMapper.class);
+
+		JGroupsInboundEndpoint clusterAdapter = context.getBean("cluster-adapter", JGroupsInboundEndpoint.class);
+
+		assertThat(clusterAdapter.getHeaderMapper()).isSameAs(headerMapper);
+
+	}
+
 }

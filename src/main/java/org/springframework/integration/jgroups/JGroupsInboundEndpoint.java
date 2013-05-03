@@ -21,17 +21,21 @@ import org.jgroups.JChannel;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.springframework.integration.endpoint.MessageProducerSupport;
-import org.springframework.integration.mapping.HeaderMapper;
 import org.springframework.integration.support.MessageBuilder;
 
 public class JGroupsInboundEndpoint extends MessageProducerSupport {
 
 	private final JChannel jgroupsChannel;
-	private final HeaderMapper<Message> headerMapper;
+	private final JGroupsHeaderMapper headerMapper;
+
+	public JGroupsInboundEndpoint(JChannel jgroupsChannel, JGroupsHeaderMapper headerMapper) {
+		super();
+		this.jgroupsChannel = jgroupsChannel;
+		this.headerMapper = headerMapper;
+	}
 
 	public JGroupsInboundEndpoint(JChannel jgroupsChannel) {
-		this.jgroupsChannel = jgroupsChannel;
-		headerMapper = new DefaultJGroupsHeaderMapper();
+		this(jgroupsChannel, new DefaultJGroupsHeaderMapper());
 	}
 
 	@Override
@@ -54,6 +58,10 @@ public class JGroupsInboundEndpoint extends MessageProducerSupport {
 
 	public JChannel getJChannel() {
 		return jgroupsChannel;
+	}
+
+	public JGroupsHeaderMapper getHeaderMapper() {
+		return headerMapper;
 	}
 
 }

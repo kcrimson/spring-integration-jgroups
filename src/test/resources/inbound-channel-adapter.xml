@@ -42,5 +42,4 @@
 		<int:queue/>
 	</int:channel>
 	
-
 </beans>

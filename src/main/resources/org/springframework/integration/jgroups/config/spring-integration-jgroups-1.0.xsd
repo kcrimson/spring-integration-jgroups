@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright 2013 Jaroslaw Palka<jaroslaw.palka@symentis.pl>
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
+<!-- Copyright 2013 Jaroslaw Palka<jaroslaw.palka@symentis.pl> Licensed under 
+	the Apache License, Version 2.0 (the "License"); you may not use this file 
+	except in compliance with the License. You may obtain a copy of the License 
+	at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable 
+	law or agreed to in writing, software distributed under the License is distributed 
+	on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
+	express or implied. See the License for the specific language governing permissions 
+	and limitations under the License. -->
 <xsd:schema xmlns="http://www.springframework.org/schema/integration/jgroups"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:tool="http://www.springframework.org/schema/tool"
@@ -51,6 +42,7 @@
 	<xsd:element name="inbound-channel-adapter">
 		<xsd:complexType>
 			<xsd:attributeGroup ref="integration:channelAdapterAttributes" />
+			
 			<xsd:attribute name="cluster" type="xsd:string" use="required">
 				<xsd:annotation>
 					<xsd:appinfo>
@@ -60,7 +52,43 @@
 					</xsd:appinfo>
 				</xsd:annotation>
 			</xsd:attribute>
+			
+			<xsd:attribute name="header-mapper" type="xsd:string" use="optional">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tool:annotation kind="ref">
+							<tool:expected-type type="org.springframework.integration.jgroups.JGroupsHeaderMapper"/>
+						</tool:annotation>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:attribute>
+			
 		</xsd:complexType>
 	</xsd:element>
+
+	<xsd:element name="outbound-channel-adapter">
+		<xsd:annotation>
+			<xsd:documentation>
+				Configures an outbound Channel Adapter that writes
+				Message payloads to a File.
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="channel" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>The channel through which outgoing messages
+						will arrive.
+					</xsd:documentation>
+					<xsd:appinfo>
+						<tool:annotation kind="ref">
+							<tool:expected-type
+								type="org.springframework.integration.MessageChannel" />
+						</tool:annotation>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+
 
 </xsd:schema>

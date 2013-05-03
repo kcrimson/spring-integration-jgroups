@@ -18,6 +18,7 @@ package org.springframework.integration.jgroups.config;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
 import org.springframework.integration.jgroups.JGroupsInboundEndpoint;
+import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
 public class JGroupsInboundChannelAdapterParser extends AbstractSingleBeanDefinitionParser {
@@ -30,6 +31,12 @@ public class JGroupsInboundChannelAdapterParser extends AbstractSingleBeanDefini
 	@Override
 	protected void doParse(Element element, BeanDefinitionBuilder builder) {
 		builder.addConstructorArgReference(element.getAttribute("cluster"));
+		
+		String headerMapperBeanName = element.getAttribute("header-mapper"); 
+		if(StringUtils.hasText(headerMapperBeanName)){
+			builder.addConstructorArgReference(headerMapperBeanName);
+		}
+		
 		builder.addPropertyReference("outputChannel", element.getAttribute("channel"));
 	}
 
