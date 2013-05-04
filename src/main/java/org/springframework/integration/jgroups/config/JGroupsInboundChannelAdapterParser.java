@@ -15,21 +15,22 @@
  */
 package org.springframework.integration.jgroups.config;
 
+import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.xml.AbstractSingleBeanDefinitionParser;
+import org.springframework.beans.factory.xml.ParserContext;
+import org.springframework.integration.config.xml.AbstractChannelAdapterParser;
 import org.springframework.integration.jgroups.JGroupsInboundEndpoint;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
 
-public class JGroupsInboundChannelAdapterParser extends AbstractSingleBeanDefinitionParser {
+public class JGroupsInboundChannelAdapterParser extends AbstractChannelAdapterParser {
+
 
 	@Override
-	protected Class<?> getBeanClass(Element element) {
-		return JGroupsInboundEndpoint.class;
-	}
+	protected AbstractBeanDefinition doParse(Element element, ParserContext parserContext, String channelName) {
 
-	@Override
-	protected void doParse(Element element, BeanDefinitionBuilder builder) {
+		BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(JGroupsInboundEndpoint.class);
+		
 		builder.addConstructorArgReference(element.getAttribute("cluster"));
 		
 		String headerMapperBeanName = element.getAttribute("header-mapper"); 
@@ -37,7 +38,9 @@ public class JGroupsInboundChannelAdapterParser extends AbstractSingleBeanDefini
 			builder.addConstructorArgReference(headerMapperBeanName);
 		}
 		
-		builder.addPropertyReference("outputChannel", element.getAttribute("channel"));
+		builder.addPropertyReference("outputChannel", channelName);
+		
+		return builder.getBeanDefinition();
 	}
 
 }
