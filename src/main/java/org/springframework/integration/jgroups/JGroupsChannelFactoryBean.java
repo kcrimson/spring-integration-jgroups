@@ -51,5 +51,9 @@ public class JGroupsChannelFactoryBean extends AbstractFactoryBean<JChannel> {
 		this.clusterName = clusterName;		
 	}
 
+	@Override
+	protected void destroyInstance(JChannel instance) throws Exception {
+		instance.disconnect();
+	}
 
 }

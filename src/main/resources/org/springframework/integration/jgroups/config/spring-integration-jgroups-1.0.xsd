@@ -75,8 +75,8 @@
 		</xsd:annotation>
 		<xsd:complexType>
 
-			<xsd:sequence minOccurs="0">
-				<xsd:element ref="integration:poller" minOccurs="0" />
+			<xsd:sequence minOccurs="0" >
+				<xsd:element ref="integration:poller" minOccurs="0"/>
 			</xsd:sequence>
 
 			<xsd:attributeGroup ref="integration:channelAdapterAttributes" />
