@@ -44,4 +44,8 @@ public class JGroupsOutboundEndpoint extends AbstractMessageHandler {
 		jgroupsChannel.send(target);
 	}
 
+	public JChannel getJChannel() {
+		return jgroupsChannel;
+	}
+
 }  

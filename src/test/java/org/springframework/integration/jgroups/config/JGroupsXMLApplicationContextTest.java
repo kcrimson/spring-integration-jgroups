@@ -20,8 +20,12 @@ import static org.fest.assertions.Assertions.assertThat;
 import org.jgroups.JChannel;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.integration.MessageChannel;
+import org.springframework.integration.endpoint.PollingConsumer;
 import org.springframework.integration.jgroups.JGroupsHeaderMapper;
 import org.springframework.integration.jgroups.JGroupsInboundEndpoint;
+import org.springframework.integration.jgroups.JGroupsOutboundEndpoint;
+import org.springframework.integration.support.MessageBuilder;
 
 public class JGroupsXMLApplicationContextTest {
 
@@ -60,4 +64,14 @@ public class JGroupsXMLApplicationContextTest {
 
 	}
 
+	@Test
+	public void should_create_jgroups_outbound_channel_adapter() throws Exception{
+		FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext("src/test/resources/outbound-channel-adapter.xml");
+
+		PollingConsumer clusterAdapter = context.getBean("cluster-adapter", PollingConsumer.class);
+		
+		
+		assertThat(clusterAdapter).isNotNull();
+
+	}
 }

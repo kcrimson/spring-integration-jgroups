@@ -21,6 +21,8 @@ public class JGroupsNamespaceHandler extends NamespaceHandlerSupport{
 
 	public void init() {
 		registerBeanDefinitionParser("inbound-channel-adapter", new JGroupsInboundChannelAdapterParser());
+		registerBeanDefinitionParser("outbound-channel-adapter", new JGroupsOutboundChannelAdapterParser());
+		
 		registerBeanDefinitionParser("cluster", new JGroupsClusterAdapterParser());
 	}
 
